@@ -1,38 +1,265 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.content[data-theme="white-theme"] {
+  --bgColor: rgb(49 49 49 / 60%);
+  --text-color: #fff;
+  --btn-bg: rgb(58 58 58 / 50%);
+  --btn-hover: rgb(42 42 42 / 50%);
+  --form-bg: rgb(52 52 52 / 40%);
+  --icon-color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.content[data-theme="dark-theme"] {
+  --bgColor: rgb(21 23 46 / 80%);
+  --text-color: #fff;
+  --btn-bg: rgb(7 9 22 / 60%);
+  --btn-hover: #070915;
+  --form-bg: rgb(7 8 23 / 50%);
+  --icon-color: #fff;
 }
 
-.App-header {
-  background-color: #282c34;
+.content[data-theme="blue-theme"] {
+  --bgColor: rgb(48 38 103 / 70%);
+  --text-color: #ffffff;
+  --btn-bg: rgb(20 17 38 / 60%);
+  --btn-hover: rgb(32 33 62 / 70%);
+  --form-bg: rgb(0 0 0 / 20%);
+  --icon-color: #fff;
+}
+
+.app {
+  width: 100%;
   min-height: 100vh;
+  background: url("./images/background.jpg") no-repeat center;
+  background-size: cover;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.content {
+  position: relative;
+  width: 320px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: var(--bgColor);
+  box-shadow: 0 0px 25px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* color choose button  */
+
+.menu_btn {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+  cursor: pointer;
+}
+
+/* background color buttons  */
+
+.bgColors {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  display: inline-block;
+  background-color: rgb(76 76 76 / 40%);
+  padding: 15px;
+  border-radius: 5px;
+  transform: scale(0);
+  transform-origin: top right;
+  transition: transform 0.4s;
+  z-index: 111;
+}
+
+.bgColors.active {
+  transform: scale(1);
+}
+
+.bgColors h6 {
+  font-size: 12px;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.colors {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  margin-top: 10px;
+}
+
+.colors .color {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.colors .white {
+  background-color: #fff;
+}
+
+.colors .dark {
+  background-color: #15172e;
+}
+
+.bdr {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background-color: #ffffff;
+}
+
+.colors .blue {
+  background-color: #271d7c;
+}
+
+.transparent {
+  font-size: 13px;
+  color: #fff;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+}
+
+/* input form styling  */
+
+.input_form {
+  margin-top: 30px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: var(--form-bg);
+}
+
+.recent_result {
+  position: relative;
+  width: 100%;
+  height: 120px;
+}
+
+.result {
+  width: 100%;
+  height: 100%;
+  text-align: right;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-end;
+  overflow-y: auto;
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end; */
+}
+
+.result p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.reset {
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  cursor: pointer;
+  color: var(--icon-color);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.reset.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.result::-webkit-scrollbar {
+  width: 0;
+}
+
+.form-group {
+  position: relative;
+  margin: 0;
+}
+
+.input_field {
+  width: 99%;
+  height: 30px;
+  text-align: right;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 1rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.input_field::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+.input_field::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.input_field::-webkit-scrollbar-thumb {
+  background-color: var(--text-color);
+  border-radius: 50px;
+}
+
+.form-group .jump {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  width: 1px;
+  height: 20px;
+  background-color: #fff;
+  animation: jump 0.4s ease-in infinite alternate-reverse;
+}
+
+@keyframes jump {
+  0% {
+    transform: scaleY(0.2);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: scaleY(1);
   }
+}
+
+/* calculator input button design  */
+
+.input_btn {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 20px;
+}
+
+.input_btn button {
+  font-family: "Lato", sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  background-color: var(--btn-bg);
+  height: 45px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.input_btn button:last-child {
+  grid-column: span 2;
+}
+
+.input_btn button:hover {
+  background-color: var(--btn-hover);
 }
